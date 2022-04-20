@@ -16,7 +16,6 @@ class DogTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -24,25 +23,18 @@ class DogTableViewCell: UITableViewCell {
     }
     
     func setCell(dog: Dog) {
-        dogName.text = dog.dogName
-        dogDescription.text = dog.description
-        dogAge.text = dog.age
+        dogName?.text = dog.dogName
+        dogDescription?.text = dog.description
+        dogAge?.text = dog.age
         
-//        if let filePath = Bundle.main.path(forResource: "imageName", ofType: "jpg"), let image = UIImage(contentsOfFile: dog.url!) {
-//            dogImage.contentMode = .scaleAspectFit
-//            dogImage.image = image
-//        }
+        if let url = URL(string: dog.url) {
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                guard let data = data, error == nil else { return }
+                DispatchQueue.main.async {
+                    self.dogImage?.image = UIImage(data: data)
+                }
+            }
+            task.resume()
+        }
     }
-    
-    func setDataCell(name: String, description: String, age: String, url: String) {
-        dogName.text = name
-//        dogDescription.text = description
-//        dogAge.text = age
-        
-//        if let filePath = Bundle.main.path(forResource: "imageName", ofType: "jpg"), let image = UIImage(contentsOfFile: url) {
-//            dogImage.contentMode = .scaleAspectFit
-//            dogImage.image = image
-//        }
-    }
-    
 }

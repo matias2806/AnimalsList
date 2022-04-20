@@ -8,10 +8,10 @@
 import Foundation
 
 struct Dog: Codable {
-    var dogName: String?
-    let description: String?
-    var age: String?
-    let url: String?
+    var dogName: String
+    let description: String
+    var age: String
+    let url: String
 
     enum CodingKeys: String, CodingKey {
         case dogName
